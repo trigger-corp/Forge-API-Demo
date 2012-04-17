@@ -1,0 +1,1 @@
+forge.logging.info("This is executed on page load");

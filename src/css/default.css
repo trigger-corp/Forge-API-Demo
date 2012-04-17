@@ -1,0 +1,145 @@
+html {
+	width:320px;
+}
+body {
+	width: 320px;
+	height: 460px;
+	margin: 0 0;
+	font-family: Arial, Helvetica, sans-serif;
+	color:white;
+	-webkit-font-smoothing:antialiased;
+	-moz-font-smoothing:antialiased;
+	-o-font-smoothing:antialiased;
+	font-smooth:auto;
+	font-size: 17px;
+	background-color: black;
+	overflow-x: hidden;
+}
+
+h1 {
+	padding: 0px 10px 0px 10px;
+}
+
+h2 {
+	margin: 10px 0px 0px 0px;
+	max-width:300px;
+	min-height: 44px;
+	font:500 21px/44px tahoma, arial, helvetica;
+	background-color: #ccc;
+	text-shadow: 0 0 0 #fff;
+	letter-spacing:1px;
+	padding: 0px 0px 0px 10px;
+	background:#008299 url(../img/bg-cross-hatching.png) repeat top left;
+	color:#fff;
+	font-weight:normal;
+}
+
+h3 {
+	margin: 10px 0px 0px 0px;
+	max-width:300px;
+	padding: 0px 0px 0px 10px;
+	font:400 18px/36px tahoma, arial, helvetica;
+	background-color: #ccc;
+	background:#008299 url(../img/bg-cross-hatching.png) repeat top left;
+	color:#fff;
+	font-weight:normal;	
+}
+
+a {
+	display: inline-block;
+	padding: 10px 4px 0px 10px;
+	color: white;
+	cursor:pointer;
+}
+
+p {
+	display: block;
+	max-width:280px;
+	padding: 0px 10px 0px 10px;
+}
+
+.description {
+	padding: 0px 10px 0px 10px;
+	max-width:300px;
+	text-align:center;
+}
+
+.function_name {
+	display:block;
+	text-align:left;
+	border-bottom: 1px solid #008299;
+	padding: 10px 0px 1px 10px;
+	margin: 0px 0px 0px 0px;
+	cursor:pointer;
+}
+
+.back {
+	cursor: pointer;
+}
+
+.forward {
+	cursor: pointer;
+}
+
+.heading {
+	width:300px;
+	padding: 5px 0px 0px 10px;
+	margin: 1px 0px 0px 0px;
+	min-height: 24px;
+	background-color: #ccc;
+	background:#008299 url(../img/bg-cross-hatching.png) repeat top left;
+	color:#fff;
+	font-weight:normal;	
+}
+
+.h3 {
+	width:300;
+	margin: 0px;
+	min-height: 28px;
+	background-color: #ccc;
+	background:#008299 url(../img/bg-cross-hatching.png) repeat top left;
+	color:#fff;
+	font-weight:normal;	
+}
+
+.fullWidth {
+	max-width:300px;
+}
+
+.expandable {
+	display: none;
+	padding: 10px 0px;
+}
+
+#snippet {
+	width:95%;
+	height: 95%;
+	margin: 0px 0px 10px 0px;
+	padding: 10px 10px 10px 10px;
+	background: #003644 url(../img/bg-cross-hatching.png) repeat top left;
+	font:400 11px tahoma, arial, helvetica;
+}
+
+#execute {
+	border: 1px solid #008299;
+	background-color: black;
+	margin: 0px 10px 10px 10px;
+	padding: 10px 10px;
+	width:265px;
+	cursor:pointer;
+	text-align:center;
+}
+
+#output {
+	border: 1px solid #008299;
+	display: block;
+	margin: 0px 10px 10px 10px;
+	padding: 10px 10px;
+	width:265px;
+
+}
+
+#description {
+	background-color:black;
+	padding: 0px 10px 10px 10px;
+}

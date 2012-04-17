@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Forge API Demonstration</title>
+		
+		<link rel="stylesheet" href="css/default.css" type="text/css">
+		
+		<script type="text/javascript" src="js/lib/zepto.min.js"></script>
+		<script type="text/javascript" src="js/lib/underscore-min.js"></script>
+		<script type="text/javascript" src="js/lib/backbone-min.js"></script>
+		<script type="text/javascript" src="js/lib/mustache.js"></script>
+
+		<script type="text/javascript" src="js/default.js"></script>
+		<script type="text/javascript" src="js/router.js"></script>
+		<script type="text/javascript" src="js/views.js"></script>
+
+
+		<script id="template_top" type="x-templ-mustache">
+			<h3 class="back">&larr;Back | {{title}}</h3>
+		</script>
+
+		<script id="template_expandable" type="x-templ-mustache">
+			<div id="description">{{description}}</div>
+			<div id="snippet" style="display:block; margin-top:0px;"><pre>{{snippet}}<pre></div>
+			<div id="execute">Execute</div>
+			<div id="output">&nbsp;</div>
+		</script>
+
+		<script id="template_home" type="x-templ-mustache">
+			<h2> Welcome to the Forge API</h2>
+			<p>Click on the links below to for more detailed information related to the specific category.</p>
+			<div class="fullWidth">
+				<h3 class="forward" id="platform_detection">Platform Detection &rarr;</h3>
+				<h3 class="forward" id="component_communication">Component Communication &rarr;</h3>
+				<h3 class="forward" id="notifications">Notifications &rarr;</h3>
+				<h3 class="forward" id="requests">Requests &rarr;</h3>
+				<h3 class="forward" id="geolocation">Geolocation &rarr;</h3>
+				<h3 class="forward" id="tools">Tools &rarr;</h3>
+				<h3 class="forward" id="logging">Logging &rarr;</h3>
+				<h3 class="forward" id="tabs_management">Tabs Management &rarr;</h3>
+				<h3 class="forward" id="preferences">Preferences &rarr;</h3>
+				<h3 class="forward" id="toolbar_button">Toolbar Button &rarr;</h3>
+				<h3 class="forward" id="file_and_camera">File and Camera Access &rarr;</h3>
+				<h3 class="forward" id="events">Events &rarr;</h3>
+				<h3 class="forward" id="user_interface">User Interface &rarr;</h3>
+				<h3 class="forward" id="contacts">Contacts &rarr;</h3>
+				<h3 class="forward" id="sms">SMS Support &rarr;</h3>
+				<h3 class="forward" id="native_top_bar">Native Top Bar &rarr;</h3>
+			</div>
+		</script>
+
+		<script id="template_platform_detection" type="x-templ-mustache">
+			<p>The following methods allow you to determine what platform the code is running on.</p>
+			<div class="heading">Platform Detection | All Platforms</div>
+			{{#platform}}
+			<div>
+				<div class="function_name" >{{command}}</div>
+			</div>
+			{{/platform}}
+			<div class="heading">Detect Orientation | Mobile Only</div>
+			{{#orientation}}
+			<div>
+				<div class="function_name" >{{command}}</div>
+			</div>
+			{{/orientation}}
+		</script>
+
+		<script id="template_component_communication" type="x-templ-mustache">
+			<p>The following methods allow you to send and receive messages between components of your extension.</p>
+			<div class="heading">Component Communication | Browser Only</div>
+			<div>
+				<div class="function_name">forge.message.listen()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.message.broadcast()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.message.broadcastBackground()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.message.toFocussed()</div>
+			</div>
+		</script>
+
+		<script id="template_notifications" type="x-templ-mustache">
+			<p>The following method allows you to create notifications.</p>
+			<div class="heading">Notifications | All Platforms</div>
+			<div>
+				<div class="function_name">forge.notification.create()</div>
+			</div>
+		</script>
+
+		<script id="template_requests" type="x-templ-mustache">
+			<p>The following methods allow you to make cross-domain ajax and get requests.</p>
+			<div class="heading">Requests | All Platforms</div>
+			<div>
+				<div id="get" class="function_name">forge.request.get()</div> 
+			</div>
+			<div>
+				<div id="ajax" class="function_name">forge.request.ajax()</div>
+			</div>
+		</script>		
+
+		<script id="template_geolocation" type="x-templ-mustache">
+			<p>The following method allows you to create notifications.</p>
+			<div class="heading">Geolocation | Mobile Only</div>
+			<div>
+				<div class="function_name">forge.geolocation.getCurrentPosition()</div>
+			</div>
+		</script>
+
+		<script id="template_tools" type="x-templ-mustache">
+			<p>The following methods allow you to generate a new UUID and to resolve a name to a local or remote rsource.</p>
+			<div class="heading">Requests | All Platforms</div>
+			<div>
+				<div class="function_name">forge.tools.UUID()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.tools.getURL()</div> 
+			</div>
+		</script>
+
+		<script id="template_logging" type="x-templ-mustache">
+			<p>The following methods allow you to log a message, and optionally an exception, to the console service provided by the underlying platform.</p>
+			<div class="heading">Requests | All Platforms</div>
+			<div>
+				<div class="function_name">forge.logging.log()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.logging.debug()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.logging.info()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.logging.warning()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.logging.error()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.logging.critical()</div> 
+			</div>
+		</script>
+
+		<script id="template_tabs_management" type="x-templ-mustache">
+			<p>Tabs management provides functionality specific to tabs.</p>
+			<div class="heading">Opening Tabs | All Platforms</div>
+			<div>
+				<div class="function_name">forge.tabs.open()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.tabs.openWithOptions()</div>
+			</div>
+			<div class="heading">Closing Tabs | Browser Only</div>
+			<div>
+				<div class="function_name">forge.tabs.closeCurrent()</div> 
+			</div>
+		</script>
+
+		<script id="template_preferences" type="x-templ-mustache">
+			<p>Preferences are used to save state in your extension. State is persisted between restarts and is consistent across all parts of your app.</p>
+			<div class="heading">Preferences | All Platforms</div>
+			<div>
+				<div class="function_name">forge.prefs.get()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.prefs.set()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.prefs.clear()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.prefs.clearAll()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.prefs.keys()</div> 
+			</div>
+		</script>
+
+		<script id="template_toolbar_button" type="x-templ-mustache">
+			<p>The following methods allow adding and manipulating a toolbar button near the address bar.</p>
+			<div class="heading">Toolbar Button | Browser Only</div>
+			<div>
+				<div class="function_name">forge.button.setIcon()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.button.setUrl()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.button.onClicked.addListener()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.button.setBadge()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.button.setBadgeBackgroundColor()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.button.setTitle()</div>
+			</div>
+		</script>
+
+		<script id="template_file_and_camera" type="x-templ-mustache">
+		</script>
+
+		<script id="template_events" type="x-templ-mustache">
+			<p>These methods allow apps to listen for events of interest, which may be triggered multiple times (or potentially not at all) depending on the situation.</p>
+			<div class="heading">Menu Pressed | Android Only</div>
+			<div>
+				<div class="function_name">forge.event.menuPressed.addListener()</div> 
+			</div>
+			<div class="heading">Other Events | All Platforms</div>
+			<div>
+				<div class="function_name">forge.event.orientationChange.addListener()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.event.messagePushed.addListener()</div> 
+			</div>
+		</script>
+
+		<script id="template_contacts" type="x-templ-mustache">
+			<p>The following method allows access to the native contact address book on the device the app is running on.</p>
+			<div class="heading">Contacts | Mobile Only</div>
+			<div>
+				<div class="function_name">forge.contact.select()</div>
+			</div>
+		</script>
+
+		<script id="template_sms" type="x-templ-mustache">
+			<p>The forge.sms namespace allows you to prompt the user to send SMS messages from your app.</p>
+			<div class="heading">SMS | Mobile Only</div>
+			<div>
+				<div class="function_name">forge.sms.send()</div>
+			</div>
+		</script>
+
+		<script id="template_native_top_bar" type="x-templ-mustache">
+			<p>The topbar module displays a fixed native header bar in mobile apps and provides a Javascript API to modify it at runtime.(Must be enabled in config.json)</p>
+			<div class="heading">Home Pressed | Android Only</div>
+			<div>
+				<div class="function_name">forge.topbar.homePressed.addListener()</div> 
+			</div>
+			<div class="heading">Other Methods | Mobile Only</div>
+			<div>
+				<div class="function_name">forge.topbar.setTitle()</div>
+			</div>
+			<div>
+				<div class="function_name">forge.topbar.addButton()</div> 
+			</div>
+			<div>
+				<div class="function_name">forge.topbar.removeButtons()</div> 
+			</div>
+		</script>
+
+
+
+
+		<script type="text/javascript">
+		
+			if (!$){$ = Zepto}; //zepto fix
+			//forge.debug = true;
+			//<script src="https://trigger.io/catalyst/target/target-script-min.js#3D790C0F-061F-4F34-85C7-417B1F91F48A"><///script>
+			$(function () {
+				forge.logging.debug("Index.html loaded.");
+				API_demo.init();
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

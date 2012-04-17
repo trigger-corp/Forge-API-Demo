@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<script type="text/javascript" src="js/lib/zepto.min.js"></script>
+		<script type="text/javascript">
+			if (!$){$ = Zepto}; //zepto fix
+			$(function () {
+				$('body').click(function(){
+					forge.button.setUrl('index.html',function(){
+						$('#result').text('Fixed. Please reopen the extension.');
+					},function(){
+						$('#result').text('Something went wrong. Try again.');
+					});
+				});
+			});
+	</script>
+	</head>
+	<body style="width:300px;">
+		<h2>Alternative Start Page</h2>
+		<div id="revert">Click anywhere to fix the start page!</div>
+		<br>
+		<div id="result"></div>
+		<be>
+	</body>
+</html>

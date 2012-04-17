@@ -1,0 +1,1 @@
+forge.message.listen(function(content, reply){	reply("Background received '"+content+"'");}, function(content){	forge.logging.log('Background: Error receiving message');})
