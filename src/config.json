@@ -1,34 +1,55 @@
 {
-	"platform_version": "v1.2",
-	"name": "API_demo2",
-	"author": "todor.miteff@gmail.com",
-	"version": "0.1",
-	"description": "Forge API Demonstration",
-	"permissions": [
-		"tabs",
-		"http://www.google.com/*",
-		"http://www.trigger.io/*",
-		"notifications"
-	],
-	"background_files": ["js/background.js"],
-	"browser_action": {
-		"default_title": "Forge API Demonstration",
-		"default_popup": "index.html",
-		"default_icon": "img/logo-forge.png"
-	},
+	"author": "todor.miteff@gmail.com", 
+	"config_version": "2", 
+	"description": "Forge API Demonstration", 
 	"modules": {
-        "topbar": true
-    },
-	"activations": [
-		{
-			"patterns": ["http://*/*", "https://*/*"],
-			"styles": [],
-			"scripts": ["js/every-page.js"],
-			"run_at": "start",
-			"all_frames": false
-		}
-	],
-	"logging": {
+		"activations": [
+			{
+				"all_frames": false, 
+				"patterns": [
+					"http://*/*", 
+					"https://*/*"
+				], 
+				"run_at": "start", 
+				"scripts": [
+					"js/every-page.js"
+				], 
+				"styles": []
+			}
+		], 
+		"background": {
+			"files": [
+				"js/background.js"
+			]
+		}, 
+		"button": {
+			"default_icon": "img/logo-forge.png", 
+			"default_popup": "index.html", 
+			"default_title": "Forge API Demonstration"
+		}, 
+		"contact": true, 
+		"event": true, 
+		"file": true, 
+		"geolocation": true, 
+		"is": true, 
+		"logging": {
 			"level": "INFO"
-	}
+		}, 
+		"message": true, 
+		"notification": true, 
+		"prefs": true, 
+		"request": {
+			"permissions": [
+				"http://www.google.com/*", 
+				"http://www.trigger.io/*"
+			]
+		}, 
+		"sms": true, 
+		"tabs": true, 
+		"tools": true, 
+		"topbar": true
+	}, 
+	"name": "API_demo2", 
+	"platform_version": "v1.3", 
+	"version": "0.1"
 }
