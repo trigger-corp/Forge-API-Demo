@@ -64,7 +64,7 @@ p {
 	text-align:center;
 }
 
-.function_name {
+.method {
 	display:block;
 	text-align:left;
 	border-bottom: 1px solid #008299;
@@ -111,7 +111,7 @@ p {
 	padding: 10px 0px;
 }
 
-#snippet {
+#snippet, #setup_snippet {
 	width:95%;
 	height: 95%;
 	margin: 0px 0px 10px 0px;
@@ -120,7 +120,7 @@ p {
 	font:400 11px tahoma, arial, helvetica;
 }
 
-#execute {
+#execute, #setup_execute {
 	border: 1px solid #008299;
 	background-color: black;
 	margin: 0px 10px 10px 10px;
@@ -140,6 +140,11 @@ p {
 }
 
 #description {
+	background-color:black;
+	padding: 0px 10px 10px 10px;
+}
+
+#setup {
 	background-color:black;
 	padding: 0px 10px 10px 10px;
 }

@@ -1,0 +1,1 @@
+This is an external text file, opened by the extension.
