@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
 	"author": "todor.miteff@gmail.com", 
 	"config_version": "2", 
@@ -55,61 +54,3 @@
 	"platform_version": "v1.3", 
 	"version": "0.1"
 }
-=======
-{
-	"author": "todor.miteff@gmail.com", 
-	"config_version": "2", 
-	"description": "Forge API Demonstration", 
-	"modules": {
-		"activations": [
-			{
-				"all_frames": false, 
-				"patterns": [
-					"http://*/*", 
-					"https://*/*"
-				], 
-				"run_at": "start", 
-				"scripts": [
-					"js/every-page.js"
-				], 
-				"styles": []
-			}
-		], 
-		"background": {
-			"files": [
-				"js/background.js"
-			]
-		}, 
-		"button": {
-			"default_icon": "img/logo-forge.png", 
-			"default_popup": "index.html", 
-			"default_title": "Forge API Demonstration"
-		}, 
-		"contact": true, 
-		"event": true, 
-		"file": true, 
-		"geolocation": true, 
-		"is": true, 
-		"logging": {
-			"level": "INFO"
-		}, 
-		"message": true, 
-		"notification": true, 
-		"prefs": true, 
-		"request": {
-			"permissions": [
-				"http://www.google.com/*", 
-				"http://www.trigger.io/*"
-			]
-		}, 
-		"sms": true, 
-		"tabbar": true,
-		"tabs": true, 
-		"tools": true, 
-		"topbar": true
-	}, 
-	"name": "API_demo2", 
-	"platform_version": "v1.3", 
-	"version": "0.1"
-}
->>>>>>> fbcb68716df53a7270bba7bde2dd0d615f1cbdb3
