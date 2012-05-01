@@ -14,16 +14,19 @@ API_demo.Views.Page = Backbone.View.extend({
          var page = Mustache.to_html(API_demo.Templates.top, data);
          $(this.el).html(page);
          $('.back',this.el).click(this.goBack);
+         window.onpopstate = this.goBack;
       }
       this.render();
    },
 
-   goBack: function() {
+   goBack: function(eventObject) {
+      eventObject.preventDefault();
       (new API_demo.Views.home({'back':true})).show();
       API_demo.router.navigate('');
    },
 
    setEvents: function(e) {
+      e.preventDefault();
       this.toggleExpandable(e,this);
    },
 
@@ -188,6 +191,7 @@ API_demo.Views.home = API_demo.Views.Page.extend({
    },
 
    openCategory: function(eventObject) {
+      eventObject.preventDefault();
       var target = $(eventObject.currentTarget);
       var id = target.attr('id');
       var title = target.text().substr(0,target.text().length-2);
@@ -205,8 +209,6 @@ API_demo.Views.home = API_demo.Views.Page.extend({
       return this;
    }
 });
-
-//TODO how to use onClicked.addListener?
 
 API_demo.Views.toolbar_button = API_demo.Views.Page.extend({
    generateExpandableData: function(text) {
@@ -254,10 +256,10 @@ API_demo.Views.toolbar_button = API_demo.Views.Page.extend({
          forge.button.setIcon(url,function(){
             output.text('Set the toolbar button icon');
          },function(content){
-            output.text('Error setting icon');
+            output.text('Error setting icon: ' + JSON.stringify(content));
          })
       }, function(content){
-         output.text('Error getting url for icon');
+         output.text('Error getting url for icon: ' + JSON.stringify(content));
       });
    },
 
@@ -265,20 +267,22 @@ API_demo.Views.toolbar_button = API_demo.Views.Page.extend({
       forge.button.setUrl('alternative.html',function(){
          output.text('Set the toolbar button URL. Please reopen extension to see the effect.');
       },function(content){
-         output.text('Error setting URL');
+         output.text('Error setting URL: ' + JSON.stringify(content));
       })
    },
 
    onClicked: function(output) {
-      //TODO
-      //forge.button.onClicked.addListener(function(){forge.logging.log('clicked')});
+      forge.button.onClicked.addListener(function(){
+         output.text('Toolbar button clicked!')
+      });
+      output.text('Added listener to toolbar button.');
    },
 
    setBadge: function(output) {
       forge.button.setBadge(1,function(){
          output.text('Set badge to 1.');
       }, function(content){
-         output.text('Failed to set badge.');
+         output.text('Failed to set badge: ' + JSON.stringify(content));
       })
    },
 
@@ -286,7 +290,7 @@ API_demo.Views.toolbar_button = API_demo.Views.Page.extend({
      forge.button.setBadgeBackgroundColor([0,255,255,255],function(){
          output.text('Set badge color to [0,255,255,255]');
       }, function(content){
-         output.text('Failed to set badge color.');
+         output.text('Failed to set badge color: ' + JSON.stringify(content));
       }) 
    },
 
@@ -294,7 +298,7 @@ API_demo.Views.toolbar_button = API_demo.Views.Page.extend({
       forge.button.setTitle('New API Demonstration Title', function(){
          output.text('Set button title to "New API Demonstration Title"');
       }, function(content){
-         output.text('Failed to set button title.');
+         output.text('Failed to set button title: ' + JSON.stringify(content));
       })
    },
 
@@ -321,7 +325,7 @@ API_demo.Views.contacts = API_demo.Views.Page.extend({
       forge.contact.select(function(contact){
          output.text('You selected '+ contact.displayName);
       }, function(content){
-         output.text('Error selecting contact');
+         output.text('Error selecting contact: ' + JSON.stringify(content));
       })
    },
 
@@ -370,7 +374,7 @@ API_demo.Views.events = API_demo.Views.Page.extend({
       forge.event.menuPressed.addListener(function(){
          output.text('Menu Pressed.');
       }, function(){
-         output.text("Error when menu is pressed.");
+         output.text('Error adding menu button listener: ' + JSON.stringify(content));
       })
       output.text('Now press the Menu key.');
    },
@@ -383,7 +387,7 @@ API_demo.Views.events = API_demo.Views.Page.extend({
             output.text("Landscape orientation detected.");
          }
       }, function(content){
-         output.text('Error during orientation change.');
+         output.text('Error adding listener for orientation change: ' + JSON.stringify(content));
       })
       output.text("Now change your device's orientation.");
    },
@@ -400,7 +404,7 @@ API_demo.Views.events = API_demo.Views.Page.extend({
             output.text('Disconnected');
          }
       },function(content){
-         output.text('Error during connection state change.');
+         output.text('Error adding a connection state change listener: ' + JSON.stringify(content));
       });
       output.text('Now change connection state.');
    },
@@ -409,7 +413,7 @@ API_demo.Views.events = API_demo.Views.Page.extend({
       forge.event.messagePushed.addListener(function(data){
          output.text('Will show up when message is pushed');
       },function(content){
-         output.text('Error during orientation change.');
+         output.text('Error adding a pushed message listener: ' + JSON.stringify(content));
       })
       output.text("Now listening for pushed messages.");
    },
@@ -501,11 +505,10 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          forge.file.URL(file,function(url){
             output.html('<img src="'+url+'">')
          }, function(content){
-            output.text('Error getting image url.');
+            output.text('Error getting image url: ' + JSON.stringify(content));
          })
-         
       }, function(content){
-         output.text('Error getting image.');
+         output.text('Error getting image: ' + JSON.stringify(content));
       })
    },
 
@@ -519,10 +522,10 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
                'Could not open video.'+
                '</video>')
          },function(content){
-            output.text('Error getting video url.');
+            output.text('Error getting video url: ' + JSON.stringify(content));
          })
       }, function(content){
-         output.text('Error getting video.');
+         output.text('Error getting video: ' + JSON.stringify(content));
       })
    },
 
@@ -531,11 +534,11 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          forge.file.URL(file,function(url){
             output.html('<img src="'+url+'">');
          }, function(content){
-            output.text('Error getting local file url.');
+            output.text('Error getting local file url: ' + JSON.stringify(content));
          })
          
       }, function(content){
-         output.text('Error getting local file');
+         output.text('Error getting local file: ' + JSON.stringify(content));
       })
    },
 
@@ -545,12 +548,11 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
             forge.file.URL(file,function(url){
                output.html('<img src="'+url+'">')  
             }, function(content){
-               output.text('Error getting url.');
+               output.text('Error getting URL: ' + JSON.stringify(content));
             })
       }, function(content){
-         output.text('Error caching URL.');
+         output.text('Error caching URL: ' + JSON.stringify(content));
       })
-      //output.text(_.keys(forge.file));
    },
 
    isFile: function (output) {
@@ -572,7 +574,7 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          output.text('Setup complete.');
          that.ready = true;
       }, function(content){
-         output.text('Setup failed.');
+         output.text('Setup failed: ' + JSON.stringify(content));
          that.ready = false;
       })
    },
@@ -581,7 +583,7 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
       forge.file.URL(this.file, function(url){
          output.text('url is '+url);
       }, function(content){
-         output.text('Error getting url.');
+         output.text('Error getting URL: ' + JSON.stringify(content));
       })
    },
 
@@ -592,7 +594,7 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          output.text('Setup complete');
          that.ready = true;
       }, function(content){
-         output.text('Setup failed');
+         output.text('Setup failed: ' + JSON.stringify(content));
          that.ready = false;
       })
    },
@@ -601,7 +603,7 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
       forge.file.base64(this.file, function(base64string){
          output.text(base64string);
       }, function(content){
-         output.text('Failed to get base64 string.');
+         output.text('Error getting base64 string: ' + JSON.stringify(content));
       })
    },
 
@@ -612,7 +614,7 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          output.text('Setup complete');
          that.ready = true;
       }, function(content){
-         output.text('Setup failed');
+         output.text('Setup failed: ' + JSON.stringify(content));
          that.ready = false;
       })
    },
@@ -622,10 +624,10 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
          forge.file.string(file, function(string){
             output.text(string);
          }, function(content){
-            output.text("Error getting string value of file.");
+            output.text('Error getting string value of file: ' + JSON.stringify(content));
          })
       }, function(content){
-         output.text("Error getting local file.");
+         output.text('Error getting local file: ' + JSON.stringify(content));
       })
    },
 
@@ -638,10 +640,10 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
             else
                output.text('It is a file.');
          }, function(content){
-            output.text('Error checking if file exits.');
+            output.text('Error checking if file exits: ' + JSON.stringify(content));
          })
       }, function(content){
-         output.text('Error removing file');
+         output.text('Error removing file: ' + JSON.stringify(content));
       })
    },
 
@@ -658,20 +660,18 @@ API_demo.Views.file_and_camera = API_demo.Views.Page.extend({
             output.text('Setup complete.')
          }, function(content){
             that.ready = false;
-            output.text('Setup failed.')
-            output.text('Error getting image url.');
+            output.text('Setup failed: ' + JSON.stringify(content));
          })
-         
       }, function(content){
          isReady = false;
-         output.text('Error getting image.');
+         output.text('Setup failed: ' + JSON.stringify(content));
       })
    },
    clearCache: function (output){
       forge.file.clearCache(function(){
          output.text('Cleared cache.');
       },function(content){
-         output.text('Error clearing cache.');
+         output.text('Error clearing cache: ' + JSON.stringify(content));
       })
    },
 
@@ -703,8 +703,7 @@ API_demo.Views.geolocation = API_demo.Views.Page.extend({
          function(position){
             output.text(JSON.stringify(position));
          }, function(error){
-            output.text('Error getting position:' +  
-            error.message);
+            output.text('Error getting position: ' + JSON.stringify(content));
       })
    },
 
@@ -740,7 +739,7 @@ API_demo.Views.platform_detection = API_demo.Views.Page.extend({
             break;
          }
          case 'forge.is.web()': {
-            data.description = "Returns true if running on as a hosted web app";
+            data.description = "Returns true if running as a hosted web app";
             break;
          }
          case 'forge.is.android()': {
@@ -939,7 +938,7 @@ API_demo.Views.component_communication = API_demo.Views.Page.extend({
          output.text('Received '+content);
          reply("Foreground received '"+content+"'");
       },function(content){
-         output.text('Error listening to message');
+         output.text('Error listening to message: ' + JSON.stringify(content));
       })
       output.text('Listening for messages of type randomType');
    },
@@ -948,7 +947,7 @@ API_demo.Views.component_communication = API_demo.Views.Page.extend({
       forge.message.broadcast('randomType','Hello',function(content){
          output.text(content);
       }, function(content){
-         output.text("Error broadcasting message "+ content);
+         output.text('Error broadcasting message: ' + JSON.stringify(content));
       })
    },
 
@@ -956,7 +955,7 @@ API_demo.Views.component_communication = API_demo.Views.Page.extend({
       forge.message.broadcastBackground('randomType','Hello',function(content){
          output.text(content);
       }, function(content){
-         output.text("Error broadcasting message to background "+ content);
+         output.text('Error broadcasting message to background: ' + JSON.stringify(content));
       })
    },
 
@@ -965,7 +964,7 @@ API_demo.Views.component_communication = API_demo.Views.Page.extend({
       forge.message.toFocussed('randomType','toFocussed Hello',function(content){
          output.text(content);
       }, function(content){
-         output.text("Error broadcasting message "+ content);
+         output.text('Error broadcasting message: ' + JSON.stringify(content));
       });
    },
 
@@ -997,7 +996,7 @@ API_demo.Views.notifications = API_demo.Views.Page.extend({
             //called when successful
             output.text('Notification created');
          }, function(content){
-            output.text('Error creating notification');
+            output.text('Error creating notification: ' + JSON.stringify(content));
          })
    },
 
@@ -1054,7 +1053,7 @@ API_demo.Views.preferences = API_demo.Views.Page.extend({
          else
             output.text("'page' has not been set.");
       }, function(error){
-         output.text("Error getting 'page' preference.");
+         output.text('Error getting "page" preference: ' + JSON.stringify(content));
       })
    },
 
@@ -1062,7 +1061,7 @@ API_demo.Views.preferences = API_demo.Views.Page.extend({
       forge.prefs.set('page', 1, function(){
          output.text("Set 'page' preference.");
       }, function(error){
-         output.text("Error setting 'page' preference.");
+         output.text('Error setting "page" preference: ' + JSON.stringify(content));
       })
    },
 
@@ -1070,7 +1069,7 @@ API_demo.Views.preferences = API_demo.Views.Page.extend({
       forge.prefs.clear('page',function(){
          output.text("Cleared 'page' preference.");
       }, function(error){
-         output.text("Error clearing 'page' preference.");
+         output.text('Error clearing "page" preference: ' + JSON.stringify(content));
       })
    },
 
@@ -1078,7 +1077,7 @@ API_demo.Views.preferences = API_demo.Views.Page.extend({
       forge.prefs.clearAll(function(){
          output.text("Cleared all preferences");
       }, function(error){
-         output.text("Error clearing all preferences.");
+         output.text('Error clearing all preferences: ' + JSON.stringify(content));
       })
    },
 
@@ -1089,7 +1088,7 @@ API_demo.Views.preferences = API_demo.Views.Page.extend({
          else
             output.text("Preference keys are:\n"+keys);
       }, function(error){
-         output.text("Error getting preferences keys.");
+         output.text('Error getting preferences keys: ' + JSON.stringify(content));
       })
    },
 
@@ -1131,8 +1130,8 @@ API_demo.Views.requests = API_demo.Views.Page.extend({
          str= pattern.exec(data).toString();
          degrees= str.substr(13,str.length-14);
          output.text(degrees+" degrees in Boston.");
-      }, function(status){
-         forge.logging.log('ERROR! [getWeatherInfo] '+status);
+      }, function(content){
+         forge.logging.log('Error doing a GET request: ' + JSON.stringify(content));
       })
    },
 
@@ -1146,7 +1145,7 @@ API_demo.Views.requests = API_demo.Views.Page.extend({
          },
          error: function(jqXHR, status, errorThrown){
             forge.logging.log('ERROR! [ajaxWeatherInfo] '+
-               status);
+               errorThrown);
          }
       })
    },
@@ -1175,9 +1174,9 @@ API_demo.Views.sms = API_demo.Views.Page.extend({
          body: 'Hello World!',
          to:['123456789','987654321']
       }, function(){
-         output.text('Message sent.');
+         output.text('Successfully opened sms app.');
       }, function(content){
-         output.text('Error sending message.');
+         output.text('Error sending message: ' + JSON.stringify(content));
       })
    },
    
@@ -1231,7 +1230,7 @@ API_demo.Views.native_tab_bar = API_demo.Views.Page.extend({
       forge.tabbar.setTint([120,120,120,255], function(){
          output.text('Set tabbar tint to [120,120,120,255].');
       }, function(content){
-         output.text('Error setting tabbar color.');
+         output.text('Error setting tabbar color: ' + JSON.stringify(content));
       })
    },
 
@@ -1239,7 +1238,7 @@ API_demo.Views.native_tab_bar = API_demo.Views.Page.extend({
       forge.tabbar.setActiveTint([255,255,0,255], function(){
          output.text('Set tabbar active tint to [0,255,255,255].');
       }, function(content){
-         output.text('Error setting tabbar color.');
+         output.text('Error setting tabbar color: ' + JSON.stringify(content));
       })
    },
 
@@ -1254,7 +1253,7 @@ API_demo.Views.native_tab_bar = API_demo.Views.Page.extend({
             output.text('Pressed tabbar button');
          })
       },function(content){
-         output.text('Error adding button to tabbar')
+         output.text('Error adding button to tabbar: ' + JSON.stringify(content));
       })
    },
 
@@ -1262,7 +1261,7 @@ API_demo.Views.native_tab_bar = API_demo.Views.Page.extend({
       forge.tabbar.removeButtons(function(){
          output.text('Removed tabbar buttons');
       }, function(content){
-         output.text('Error removing tabbar buttons');
+         output.text('Error removing tabbar buttons: ' + JSON.stringify(content));
       })
    },
    
@@ -1270,7 +1269,7 @@ API_demo.Views.native_tab_bar = API_demo.Views.Page.extend({
       forge.tabbar.setInactive(function(){
          output.text('Set tabbar to inactive.');
       }, function(content){
-         output.text('Error setting tabbar to inactive.');
+         output.text('Error setting tabbar to inactive: ' + JSON.stringify(content));
       })
    },
 
@@ -1315,7 +1314,7 @@ API_demo.Views.tabs_management = API_demo.Views.Page.extend({
          function(object){
             output.text('Successfully opened new tab.');
          },function(content){
-            output.text('Error opening tab.');
+            output.text('Error opening tab: ' + JSON.stringify(content));
       })
    },
 
@@ -1326,13 +1325,13 @@ API_demo.Views.tabs_management = API_demo.Views.Page.extend({
       },function(object){
          output.text('Successfully opened new tab.');
       },function(content){
-         output.text('Error opening tab.');
+         output.text('Error opening tab: ' + JSON.stringify(content));
       })
    },
 
    closeTab: function (output) {
       forge.tabs.closeCurrent(function(content){
-         output.text('Error closing tab');
+         output.text('Error closing tab: ' + JSON.stringify(content));
       })
    },
 
@@ -1345,8 +1344,6 @@ API_demo.Views.tabs_management = API_demo.Views.Page.extend({
       return this;
    }
 });
-
-//TODO getURL does not work on android??
 
 API_demo.Views.tools = API_demo.Views.Page.extend({
    
@@ -1374,14 +1371,10 @@ API_demo.Views.tools = API_demo.Views.Page.extend({
    },
 
    getURL: function (output) {
-      forge.tools.getURL('external.html',function(url){
-         forge.request.get(url,function(data){
-            output.html(data);   
-         }, function(error){
-            output.text = "Error loading url";
-         })
-      },function(error){
-         output.text('URL error');
+      forge.tools.getURL('img/trigger-logo.png',function(url){
+         output.html('<img src="'+url+'">');   
+      },function(content){
+         output.text('Error getting a URL: ' + JSON.stringify(content));
       })
    },
 
@@ -1435,15 +1428,15 @@ API_demo.Views.native_top_bar = API_demo.Views.Page.extend({
       forge.topbar.setTitle('Forge API Demo',function(){
          output.text('Set top bar title.');
       }, function(content){
-         output.text('Error setting top bar title.');
+         output.text('Error setting top bar title: ' + JSON.stringify(content));
       })
    },
 
    setTitleImage: function (output) {
       forge.topbar.setTitleImage('img/logo-forge.png',function(){
          output.text('Set top bar title image.');
-      }, function(){
-         output.text('Error setting top bar title image.');
+      }, function(content){
+         output.text('Error setting top bar title image: ' + JSON.stringify(content));
       })
    },
 
@@ -1451,7 +1444,7 @@ API_demo.Views.native_top_bar = API_demo.Views.Page.extend({
       forge.topbar.setTint([120,120,120,255], function(){
          output.text('Set topbar tint to [120,120,120,255].');
       }, function(content){
-         output.text('Error setting topbar color.');
+         output.text('Error setting topbar color: ' + JSON.stringify(content));
       })
    },
    addButton: function (output) {
@@ -1460,8 +1453,8 @@ API_demo.Views.native_top_bar = API_demo.Views.Page.extend({
          position: "left"
       }, function () {
          output.text("Search pressed.");
-      }, function(){
-         output.text('Error creating top bar button.');
+      }, function(content){
+         output.text('Error creating top bar button: ' + JSON.stringify(content));
       })
    },
 
@@ -1469,7 +1462,7 @@ API_demo.Views.native_top_bar = API_demo.Views.Page.extend({
       forge.topbar.removeButtons(function(){
          output.text('Removed top bar buttons');
       }, function(content){
-         output.text('Error removing top bar buttons');
+         output.text('Error removing top bar buttons: ' + JSON.stringify(content));
       })
    },
 
