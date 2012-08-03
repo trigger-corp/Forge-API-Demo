@@ -1,56 +1,57 @@
 {
-	"author": "todor.miteff@gmail.com", 
-	"config_version": "2", 
-	"description": "Forge API Demonstration", 
-	"modules": {
-		"activations": [
-			{
-				"all_frames": false, 
-				"patterns": [
-					"http://*/*", 
-					"https://*/*"
-				], 
-				"run_at": "start", 
-				"scripts": [
-					"js/every-page.js"
-				], 
-				"styles": []
-			}
-		], 
-		"background": {
-			"files": [
-				"js/background.js"
-			]
-		}, 
-		"button": {
-			"default_icon": "img/logo-forge.png", 
-			"default_popup": "index.html", 
-			"default_title": "Forge API Demonstration"
-		}, 
-		"contact": true, 
-		"event": true, 
-		"file": true, 
-		"geolocation": true, 
-		"is": true, 
-		"logging": {
-			"level": "INFO"
-		}, 
-		"message": true, 
-		"notification": true, 
-		"prefs": true, 
-		"request": {
-			"permissions": [
-				"http://www.google.com/*", 
-				"http://www.trigger.io/*"
-			]
-		}, 
-		"sms": true, 
-		"tabbar":true,
-		"tabs": true, 
-		"tools": true, 
-		"topbar": true
-	}, 
-	"name": "API_demo2", 
-	"platform_version": "v1.3", 
-	"version": "0.1"
+    "config_version": "3", 
+    "author": "todor.miteff@gmail.com", 
+    "modules": {
+        "geolocation": true, 
+        "file": true, 
+        "logging": {
+            "level": "INFO"
+        }, 
+        "tabbar": true, 
+        "tabs": true, 
+        "notification": true, 
+        "button": {
+            "default_popup": "index.html", 
+            "default_title": "Forge API Demonstration", 
+            "default_icon": "img/logo-forge.png"
+        }, 
+        "sms": true, 
+        "request": {
+            "permissions": [
+                "http://www.google.com/*", 
+                "http://www.trigger.io/*"
+            ]
+        }, 
+        "event": true, 
+        "reload": true, 
+        "contact": true, 
+        "background": {
+            "files": [
+                "js/background.js"
+            ]
+        }, 
+        "activations": [
+            {
+                "all_frames": false, 
+                "patterns": [
+                    "http://*/*", 
+                    "https://*/*"
+                ], 
+                "run_at": "start", 
+                "styles": [], 
+                "scripts": [
+                    "js/every-page.js"
+                ]
+            }
+        ], 
+        "message": true, 
+        "prefs": true, 
+        "tools": true, 
+        "topbar": true, 
+        "is": true
+    }, 
+    "name": "API_demo2", 
+    "platform_version": "v1.4", 
+    "version": "0.1", 
+    "description": "Forge API Demonstration"
 }
